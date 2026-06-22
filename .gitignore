@@ -3,3 +3,4 @@
 .venv
 .env
 pip/utils/__pycache__
+pip/cogs/__pycache__
