@@ -40,9 +40,9 @@ class UserService:
 
         user.heat += amount
 
+        session.merge(user)
         session.commit()
 
-        session.refresh(user)
         return user
 
     def remove_heat(self, guild_id: int, user_id: int, amount: int):
@@ -55,7 +55,7 @@ class UserService:
         if user.heat < 0:
             user.heat = 0
 
+        session.merge(user)
         session.commit()
 
-        session.refresh(user)
         return user
