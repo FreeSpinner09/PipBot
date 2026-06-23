@@ -1,5 +1,6 @@
-import discord
 import os
+
+import discord
 from discord.ext import commands
 from utils.config import DISCORD_TOKEN
 from utils.logger import logger

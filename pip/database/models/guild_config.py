@@ -1,6 +1,6 @@
 from sqlalchemy import (
-    Boolean,
     BigInteger,
+    Boolean,
     ForeignKey,
 )
 from sqlalchemy.orm import (

@@ -1,6 +1,7 @@
-from sqlalchemy import BigInteger, String, DateTime
+from datetime import UTC, datetime
+
+from sqlalchemy import BigInteger, DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column
-from datetime import datetime, UTC
 
 from pip.database.base import Base
 
