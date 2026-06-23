@@ -4,3 +4,8 @@
 pip/utils/__pycache__
 pip/cogs/__pycache__
 .ruff_cache
+pip.db
+pip/__pycache__
+database/__pycache__
+services/__pycache__
+services/utils/__pycache__
