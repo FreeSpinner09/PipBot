@@ -31,3 +31,31 @@ class UserService:
             return self.create_user(guild_id, user_id)
         else:
             return user
+
+    def add_heat(self, guild_id: int, user_id: int, amount: int):
+
+        session = get_session()
+
+        user = self.get_or_create_user(guild_id, user_id)
+
+        user.heat += amount
+
+        session.commit()
+
+        session.refresh(user)
+        return user
+
+    def remove_heat(self, guild_id: int, user_id: int, amount: int):
+        session = get_session()
+
+        user = self.get_or_create_user(guild_id, user_id)
+
+        user.heat -= amount
+
+        if user.heat < 0:
+            user.heat = 0
+
+        session.commit()
+
+        session.refresh(user)
+        return user
