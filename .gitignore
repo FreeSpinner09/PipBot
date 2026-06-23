@@ -1,5 +1,4 @@
 .github
-.vscode
 .venv
 .env
 pip/utils/__pycache__
