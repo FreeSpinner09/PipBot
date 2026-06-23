@@ -13,13 +13,15 @@ class Case(Base):
 
     guild_id: Mapped[int] = mapped_column(BigInteger)
 
+    guild_case_number: Mapped[int] = mapped_column(BigInteger)
+
     user_id: Mapped[int] = mapped_column(BigInteger)
 
     moderator_id: Mapped[int] = mapped_column(BigInteger, nullable=True)
 
-    action: Mapped[str] = mapped_column(String)
+    action: Mapped[str] = mapped_column(String(50))
 
-    reason: Mapped[str] = mapped_column(String)
+    reason: Mapped[str] = mapped_column(String(150))
 
     automated: Mapped[bool] = mapped_column(default=False)
 
