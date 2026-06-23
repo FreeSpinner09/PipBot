@@ -1,26 +1,16 @@
-from pip.services.user_service import UserService
+from pip.services.case_service import CaseService
 
-service = UserService()
+service = CaseService()
 
-user = service.get_or_create_user(
+case = service.create_case(
     guild_id=123,
     user_id=456,
+    moderator_id=789,
+    action="warn",
+    reason="Testing",
 )
 
-print(f"Current Heat: {user.heat}")
-
-user = service.add_heat(
-    guild_id=123,
-    user_id=456,
-    amount=10,
-)
-
-print(f"After Add: {user.heat}")
-
-user = service.remove_heat(
-    guild_id=123,
-    user_id=456,
-    amount=5,
-)
-
-print(f"After Remove: {user.heat}")
+print(case.id)
+print(case.action)
+print(case.reason)
+print(case.automated)
