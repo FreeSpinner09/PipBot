@@ -1,4 +1,4 @@
-from database import get_session
+from pip.database.database import get_session
 
 session = get_session()
 

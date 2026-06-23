@@ -4,3 +4,4 @@
 .env
 pip/utils/__pycache__
 pip/cogs/__pycache__
+.ruff_cache
