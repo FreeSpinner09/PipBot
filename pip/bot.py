@@ -38,6 +38,6 @@ class Client(commands.Bot):
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = Client(command_prefix="!", intents=intents)
+client = Client(command_prefix="!", intents=intents, owner_id=986094035762573312)
 
 client.run(f"{DISCORD_TOKEN}")
