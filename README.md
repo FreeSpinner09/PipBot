@@ -3,7 +3,7 @@
 > [!WARNING]
 > **Source Available Project**
 >
-> Pip is licensed under the [**Pip Source Available License (PSAL)**](?tab=readme-ov-file).
+> Pip is licensed under the [**Pip Source Available License (PSAL)**](https://github.com/FreeSpinner09/PipBot/blob/main/license.md).
 >
 > ✅ View source code
 > ✅ Fork to contribute via pull requests
@@ -11,7 +11,7 @@
 > ❌ Production use without permission
 > ❌ Redistribution of modified or unmodified copies
 >
-> Please read the [LICENSE](https://github.com/FreeSpinner09/PipBot?tab=License-1-ov-file) before using this project.
+> Please read the [LICENSE](https://github.com/FreeSpinner09/PipBot/blob/main/license.md) before using this project.
 
 ---
 
@@ -344,12 +344,12 @@ Before opening a pull request:
 * Write clean, typed Python code.
 * Keep responsibilities separated.
 
-Please note that this project is **source available**, not open source. By contributing, you agree to the terms outlined in the project's [`LICENSE`](https://github.com/FreeSpinner09/PipBot?tab=License-1-ov-file).
+Please note that this project is **source available**, not open source. By contributing, you agree to the terms outlined in the project's [`LICENSE`](https://github.com/FreeSpinner09/PipBot/blob/main/license.md).
 
 ---
 
 # License
 
-This project is licensed under the [**Pip Source Available License (PSAL)**](https://github.com/FreeSpinner09/PipBot?tab=License-1-ov-file).
+This project is licensed under the [**Pip Source Available License (PSAL)**](https://github.com/FreeSpinner09/PipBot/blob/main/license.md).
 
-See the [LICENSE](https://github.com/FreeSpinner09/PipBot?tab=License-1-ov-file) file for complete terms and conditions.
+See the [LICENSE](https://github.com/FreeSpinner09/PipBot/blob/main/license.md) file for complete terms and conditions.
