@@ -11,7 +11,7 @@
 > ❌ Production use without permission
 > ❌ Redistribution of modified or unmodified copies
 >
-> Please read the LICENSE before using this project.
+> Please read the [LICENSE](https://github.com/FreeSpinner09/PipBot/blob/main/license) before using this project.
 
 ---
 
