@@ -1,4 +1,9 @@
+import discord
+from discord.ext import commands
+
+from pip.database.models.case import Case
 from pip.services.guild_config_service import GuildConfigService
+from pip.utils.embed_factory import EmbedFactory
 from pip.utils.logger import logger
 
 
@@ -7,46 +12,69 @@ class ModLogService:
     def __init__(self):
         self.guild_config_service = GuildConfigService()
 
-    def log_case(self, case):
+    async def log_case(
+        self,
+        bot: commands.Bot,
+        case: Case,
+    ) -> None:
+        """
+        Sends a moderation log for a case if a mod log channel is configured.
+        """
+
         try:
             config = self.guild_config_service.get_config(case.guild_id)
+
         except ValueError:
-            logger.info(
-                "Moderation case logged without guild config: "
-                "guild_id=%s case=%s action=%s user_id=%s moderator_id=%s reason=%s",
+            logger.warning(
+                "Cannot log moderation case. Guild config not found. guild_id=%s",
                 case.guild_id,
-                case.guild_case_number,
-                case.action,
-                case.user_id,
-                case.moderator_id,
-                case.reason,
             )
-            return None
+            return
 
         if config.mod_log_channel is None:
-            logger.info(
-                "Moderation case logged with mod log disabled: "
-                "guild_id=%s case=%s action=%s user_id=%s moderator_id=%s reason=%s",
-                case.guild_id,
-                case.guild_case_number,
-                case.action,
-                case.user_id,
-                case.moderator_id,
-                case.reason,
-            )
-            return None
+            return
 
-        logger.info(
-            "Moderation case logged: "
-            "guild_id=%s mod_log_channel=%s case=%s action=%s user_id=%s "
-            "moderator_id=%s reason=%s",
-            case.guild_id,
-            config.mod_log_channel,
-            case.guild_case_number,
-            case.action,
-            case.user_id,
-            case.moderator_id,
-            case.reason,
+        channel = bot.get_channel(config.mod_log_channel)
+
+        if not isinstance(channel, discord.TextChannel):
+            logger.warning(
+                "Configured mod log channel is invalid. guild_id=%s channel_id=%s",
+                case.guild_id,
+                config.mod_log_channel,
+            )
+            return
+
+        embed = EmbedFactory.case(
+            case_number=case.guild_case_number,
+            action=case.action,
+            user_id=case.user_id,
+            moderator_id=case.moderator_id,
+            reason=case.reason,
+            automated=case.automated,
+            color=EmbedFactory.WARNING_COLOR,
+            timestamp=case.timestamp,
         )
 
-        return config.mod_log_channel
+        try:
+            await channel.send(embed=embed)
+
+            logger.info(
+                "Moderation case logged. guild_id=%s case=%s channel_id=%s",
+                case.guild_id,
+                case.guild_case_number,
+                channel.id,
+            )
+
+        except discord.Forbidden:
+            logger.exception(
+                "Missing permission to send moderation log. guild_id=%s channel_id=%s",
+                case.guild_id,
+                channel.id,
+            )
+
+        except discord.HTTPException:
+            logger.exception(
+                "Discord rejected moderation log. guild_id=%s case=%s",
+                case.guild_id,
+                case.guild_case_number,
+            )

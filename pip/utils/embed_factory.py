@@ -79,30 +79,6 @@ class EmbedFactory:
         return embed
 
     @staticmethod
-    def mod_log(
-        case_number: int,
-        action: str,
-        user_id: int,
-        moderator_id: int | None,
-        reason: str,
-        automated: bool = False,
-    ) -> discord.Embed:
-        embed = EmbedFactory._base_embed(
-            title=f"Mod Log | Case #{case_number}",
-            color=EmbedFactory.WARNING_COLOR,
-        )
-        embed.add_field(name="Action", value=action, inline=False)
-        embed.add_field(name="User", value=f"<@{user_id}>", inline=False)
-        embed.add_field(
-            name="Moderator",
-            value="Automated" if moderator_id is None else f"<@{moderator_id}>",
-            inline=False,
-        )
-        embed.add_field(name="Reason", value=reason, inline=False)
-        embed.add_field(name="Automated", value=str(automated), inline=True)
-        return embed
-
-    @staticmethod
     def case(
         case_number: int,
         action: str,
@@ -110,21 +86,48 @@ class EmbedFactory:
         moderator_id: int | None,
         reason: str,
         automated: bool | None = None,
+        *,
+        color: discord.Color | None = None,
+        title: str | None = None,
+        timestamp: datetime | None = None,
     ) -> discord.Embed:
         embed = EmbedFactory._base_embed(
-            title=f"Case #{case_number}",
-            color=EmbedFactory.INFO_COLOR,
+            title=title or f"Case #{case_number} • {action}",
+            color=color or EmbedFactory.INFO_COLOR,
         )
-        embed.add_field(name="Action", value=action, inline=False)
-        embed.add_field(name="User", value=f"<@{user_id}>", inline=False)
+
+        if timestamp is not None:
+            embed.timestamp = timestamp
+
+        embed.add_field(
+            name="Action",
+            value=action,
+            inline=False,
+        )
+
+        embed.add_field(
+            name="User",
+            value=f"<@{user_id}>",
+            inline=False,
+        )
+
         embed.add_field(
             name="Moderator",
             value="Automated" if moderator_id is None else f"<@{moderator_id}>",
             inline=False,
         )
-        embed.add_field(name="Reason", value=reason, inline=False)
+
+        embed.add_field(
+            name="Reason",
+            value=reason,
+            inline=False,
+        )
 
         if automated is not None:
-            embed.add_field(name="Automated", value=str(automated), inline=True)
+            embed.add_field(
+                name="Automated",
+                value="Yes" if automated else "No",
+                inline=True,
+            )
 
         return embed
