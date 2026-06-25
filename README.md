@@ -3,7 +3,7 @@
 > [!WARNING]
 > **Source Available Project**
 >
-> Pip is licensed under the [**Pip Source Available License (PSAL)**](https://github.com/FreeSpinner09/PipBot?tab=License-1-ov-file).
+> Pip is licensed under the [**Pip Source Available License (PSAL)**](?tab=readme-ov-file).
 >
 > ✅ View source code
 > ✅ Fork to contribute via pull requests
