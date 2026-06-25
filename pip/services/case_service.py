@@ -60,14 +60,27 @@ class CaseService:
             .first()
         )
 
-    def get_user_cases(self, guild_id: int, user_id: int):
+    def get_user_cases(self, guild_id: int, user_id: int, action_filter: str | None):
         session = get_session()
 
-        cases = (
-            session.query(Case)
-            .filter(Case.guild_id == guild_id, Case.user_id == user_id)
-            .order_by(Case.guild_case_number.desc())
-            .all()
-        )
+        if action_filter is None:
+            cases = (
+                session.query(Case)
+                .filter(Case.guild_id == guild_id, Case.user_id == user_id)
+                .order_by(Case.guild_case_number.desc())
+                .all()
+            )
+            return cases
 
-        return cases
+        else:
+            cases = (
+                session.query(Case)
+                .filter(
+                    Case.guild_id == guild_id,
+                    Case.user_id == user_id,
+                    Case.action == action_filter,
+                )
+                .order_by(Case.guild_case_number.desc())
+                .all()
+            )
+            return cases

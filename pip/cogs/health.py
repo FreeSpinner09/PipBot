@@ -5,6 +5,7 @@ from sqlalchemy import text
 
 from pip.database.database import get_session
 from pip.utils.config import TEST_GUILD_ID
+from pip.utils.embed_factory import EmbedFactory
 
 
 class Health(commands.Cog):
@@ -19,7 +20,7 @@ class Health(commands.Cog):
 
         if not await self.bot.is_owner(interaction.user):
             await interaction.response.send_message(
-                "❌ This command is owner only.",
+                "This command is owner only.",
                 ephemeral=True,
             )
             return False
@@ -39,7 +40,7 @@ class Health(commands.Cog):
 
         latency = round(self.bot.latency * 1000)
 
-        database_status = "🟢 OK"
+        database_status = "OK"
 
         try:
             session = get_session()
@@ -47,47 +48,14 @@ class Health(commands.Cog):
             session.execute(text("SELECT 1"))
 
         except Exception as e:
-            database_status = f"🔴 FAILED\n" f"{type(e).__name__}: {e}"
+            database_status = f"FAILED\n{type(e).__name__}: {e}"
 
-        embed = discord.Embed(
-            title="🩺 Pip Health Check",
-            color=discord.Color.green(),
-        )
-
-        embed.add_field(
-            name="Discord",
-            value="🟢 Connected",
-            inline=False,
-        )
-
-        embed.add_field(
-            name="Database",
-            value=database_status,
-            inline=False,
-        )
-
-        embed.add_field(
-            name="Latency",
-            value=f"{latency}ms",
-            inline=False,
-        )
-
-        embed.add_field(
-            name="Guilds",
-            value=str(len(self.bot.guilds)),
-            inline=True,
-        )
-
-        embed.add_field(
-            name="Loaded Cogs",
-            value=str(len(self.bot.cogs)),
-            inline=True,
-        )
-
-        embed.add_field(
-            name="Cached Users",
-            value=str(len(self.bot.users)),
-            inline=True,
+        embed = EmbedFactory.health(
+            latency=latency,
+            database_status=database_status,
+            guild_count=len(self.bot.guilds),
+            loaded_cogs=len(self.bot.cogs),
+            cached_users=len(self.bot.users),
         )
 
         await interaction.response.send_message(

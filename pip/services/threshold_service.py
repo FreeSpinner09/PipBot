@@ -12,8 +12,16 @@ class ThresholdService:
     ):
         session = get_session()
 
+        currentThresholds = self.get_thresholds(guild_id)
+        if currentThresholds is not None:
+            nextThresholdCount = 1 + len(self.get_thresholds(guild_id))
+
+        else:
+            nextThresholdCount = 1
+
         threshold = PunishmentThresholds(
             guild_id=guild_id,
+            guild_threshold_id=nextThresholdCount,
             threshold_value=threshold_value,
             punishment_type=punishment_type,
             duration=duration,
@@ -48,3 +56,23 @@ class ThresholdService:
         )
 
         return thresholds
+
+    def remove_threshold(self, guild_id: int, threshold_id: int):
+        session = get_session()
+
+        threshold = (
+            session.query(PunishmentThresholds)
+            .filter(
+                PunishmentThresholds.guild_id == guild_id,
+                PunishmentThresholds.guild_threshold_id == threshold_id,
+            )
+            .first()
+        )
+
+        if threshold is None:
+            return None
+
+        session.delete(threshold)
+        session.commit()
+
+        return threshold

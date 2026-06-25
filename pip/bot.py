@@ -27,8 +27,18 @@ class Client(commands.Bot):
                     print(f"Failed to load {extension}: {e}")
 
     async def on_ready(self):
+        commands_to_sync = self.tree.get_commands(guild=TEST_GUILD_ID)
         synced = await self.tree.sync(guild=TEST_GUILD_ID)
-        print(f"Synced {len(synced)} commands")
+        total_commands = sum(
+            (
+                len(command.commands)
+                if isinstance(command, discord.app_commands.Group)
+                else 1
+            )
+            for command in commands_to_sync
+        )
+        print(f"Synced {len(synced)} top-level commands")
+        print(f"Synced {total_commands} total command actions")
         print(f"Logged on as {self.user}")
 
     async def on_error(self, event, *args, **kwargs):

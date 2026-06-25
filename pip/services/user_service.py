@@ -60,6 +60,11 @@ class UserService:
 
         return user
 
+    def get_user_heat(self, guild_id: int, user_id: int):
+        user = self.get_or_create_user(guild_id, user_id)
+
+        return user.heat
+
     def increment_warning_count(self, guild_id: int, user_id: int):
         session = get_session()
 

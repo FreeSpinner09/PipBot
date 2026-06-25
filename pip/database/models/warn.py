@@ -13,11 +13,19 @@ class Warn(Base):
 
     user_id: Mapped[int] = mapped_column(BigInteger)
 
-    case_id: Mapped[int] = mapped_column(BigInteger)
+    guild_id: Mapped[int] = mapped_column(BigInteger)
+
+    guild_case_id: Mapped[int] = mapped_column(BigInteger)
 
     points: Mapped[int] = mapped_column(default=0)
 
+    moderator_id: Mapped[int] = mapped_column(BigInteger, nullable=True)
+
+    timestamp: Mapped[datetime] = mapped_column(DateTime)
+
     reason: Mapped[str] = mapped_column(String(1000))
+
+    automated: Mapped[bool] = mapped_column(default=False)
 
     expires_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
 

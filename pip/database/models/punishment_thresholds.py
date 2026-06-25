@@ -11,6 +11,8 @@ class PunishmentThresholds(Base):
 
     guild_id: Mapped[int] = mapped_column(BigInteger)
 
+    guild_threshold_id: Mapped[int] = mapped_column(BigInteger)
+
     threshold_value: Mapped[int] = mapped_column(BigInteger)
 
     punishment_type: Mapped[str] = mapped_column(String)
