@@ -283,7 +283,7 @@ pip/
 ### Configuration
 
 * [ ] Threshold Commands
-* [ ] Configuration Commands
+* [x] Configuration Commands
 * [ ] Mod Log Channel
 
 ### Logging
@@ -344,12 +344,12 @@ Before opening a pull request:
 * Write clean, typed Python code.
 * Keep responsibilities separated.
 
-Please note that this project is **source available**, not open source. By contributing, you agree to the terms outlined in the project's `LICENSE`.
+Please note that this project is **source available**, not open source. By contributing, you agree to the terms outlined in the project's [`LICENSE`](https://github.com/FreeSpinner09/PipBot/blob/main/license).
 
 ---
 
 # License
 
-This project is licensed under the **Pip Source Available License (PSAL)**.
+This project is licensed under the [**Pip Source Available License (PSAL)**](https://github.com/FreeSpinner09/PipBot/blob/main/license).
 
-See the LICENSE file for complete terms and conditions.
+See the [LICENSE](https://github.com/FreeSpinner09/PipBot/blob/main/license) file for complete terms and conditions.
